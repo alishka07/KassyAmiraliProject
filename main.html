@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторные эксперименты</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        #main {
+		margin-left: 35%;
+		max-width: 54em;
+		padding: 8em 4em 4em 4em;
+		width: calc(100% - 35%);}
+
+
+        #header {
+		display: -moz-flex;
+		display: -webkit-flex;
+		display: -ms-flex;
+		display: flex;
+		-moz-flex-direction: column;
+		-webkit-flex-direction: column;
+		-ms-flex-direction: column;
+		flex-direction: column;
+		-moz-align-items: -moz-flex-end;
+		-webkit-align-items: -webkit-flex-end;
+		-ms-align-items: -ms-flex-end;
+		align-items: flex-end;
+		-moz-justify-content: space-between;
+		-webkit-justify-content: space-between;
+		-ms-justify-content: space-between;
+		justify-content: space-between;
+		background-color: #1f1815;
+		background-attachment: scroll,								scroll;
+		background-image: url("images/overlay.png"), url("../../images/bg.jpg");
+		background-position: top left,							top left;
+		background-repeat: repeat,								no-repeat;
+		background-size: auto,								150%;
+		color: rgba(255, 255, 255, 0.5);
+		height: 100%;
+		left: 0;
+		padding: 8em 4em;
+		position: fixed;
+		text-align: right;
+		top: 0;
+		width: 35%;
+	}
+
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f);
+            border-radius: 10px;
+            color: white;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .experiment-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .experiment-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .experiment-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .card-content {
+            padding: 20px;
+        }
+        
+        .card-content h3 {
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+            color: #1a2a6c;
+        }
+        
+        .card-content p {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        .detail-panel {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 90%;
+            max-width: 1000px;
+            max-height: 90vh;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+            overflow: hidden;
+            transition: transform 0.4s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .detail-panel.active {
+            transform: translate(-50%, -50%) scale(1);
+        }
+        
+        .panel-header {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+        
+        .panel-header h2 {
+            font-size: 1.5rem;
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .close-btn:hover {
+            color: #fdbb2d;
+        }
+        
+        .panel-body {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+        
+        .panel-content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .panel-content h3 {
+            color: #1a2a6c;
+            margin: 15px 0 10px;
+            font-size: 1.3rem;
+        }
+        
+        .panel-content p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .panel-content ul, .panel-content ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .panel-content li {
+            margin-bottom: 8px;
+        }
+        
+        .video-container {
+            width: 40%;
+            background: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .video-placeholder {
+            width: 100%;
+            height: 250px;
+            background: #ddd;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #666;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .video-placeholder i {
+            font-size: 3rem;
+            color: #b21f1f;
+            margin-right: 10px;
+        }
+        
+        .video-description {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s;
+            z-index: 99;
+        }
+        
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        @media (max-width: 900px) {
+            .panel-body {
+                flex-direction: column;
+            }
+            
+            .video-container {
+                width: 100%;
+                order: -1;
+                padding: 15px;
+            }
+            
+            .video-placeholder {
+                height: 200px;
+            }
+            
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .detail-panel {
+                width: 95%;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+        
+        .experiment-meta {
+            display: flex;
+            gap: 15px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+        
+        .meta-item {
+            background: #f0f5ff;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .meta-item i {
+            color: #b21f1f;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #f0f5ff;
+        }
+    </style>
+</head>
+    <body>
+
+
+<!-- Start of OpenWidget (www.openwidget.com) code -->
+<script>
+  window.__ow = window.__ow || {};
+  window.__ow.organizationId = "e594a349-9728-42f3-8559-23adb5142bcd";
+  window.__ow.integration_name = "manual_settings";
+  window.__ow.product_name = "openwidget";   
+  ;(function(n,t,c){function i(n){return e._h?e._h.apply(null,n):e._q.push(n)}var e={_q:[],_h:null,_v:"2.0",on:function(){i(["on",c.call(arguments)])},once:function(){i(["once",c.call(arguments)])},off:function(){i(["off",c.call(arguments)])},get:function(){if(!e._h)throw new Error("[OpenWidget] You can't use getters before load.");return i(["get",c.call(arguments)])},call:function(){i(["call",c.call(arguments)])},init:function(){var n=t.createElement("script");n.async=!0,n.type="text/javascript",n.src="https://cdn.openwidget.com/openwidget.js",t.head.appendChild(n)}};!n.__ow.asyncInit&&e.init(),n.OpenWidget=n.OpenWidget||e}(window,document,[].slice))
+</script>
+<noscript>You need to <a href="https://www.openwidget.com/enable-javascript" rel="noopener nofollow">enable JavaScript</a> to use the communication tool powered by <a href="https://www.openwidget.com/" rel="noopener nofollow" target="_blank">OpenWidget</a></noscript>
+<!-- End of OpenWidget code -->
+
+
+		<!-- Header -->
+			<header id="header">
+				<div class="inner">
+					<h1 style="font-size: 75px; color: #f0f5ff;"><strong>STEM BOX</strong> </h1>
+                     <h1 style="font-size: 60px; color: #f5f5f5; align-self: center;"><strong>Explore the world of science with us!</br> Создание моделей,проведения опытов и многое другое....</strong> </h1>
+                    <h1 style="font-size: 30px; color: #464141;"><strong>Created by Altay Amirali and Kassiyet Zhumabek</strong> </h1>
+				</div>
+               
+			</header>
+
+		<!-- Main -->
+			<div id="main">
+        <header>
+            <h1>Лабораторные эксперименты</h1>
+            <p class="subtitle">Исследуйте увлекательный мир научных экспериментов</p>
+        </header>
+        
+        <div class="gallery">
+            <!-- Карточка 1 -->
+            <div class="experiment-card" data-experiment="1">
+                <img src="images/vitaminC(1).png" alt="Выявление витамина С">
+                <div class="card-content">
+                    <h3>Выявление витамина С во фруктах</h3>
+                    <p>Сравнение количества витамина С в свежевыжатых соках различных фруктов с помощью титрования.</p>
+                </div>
+            </div>
+            
+            <!-- Карточка 2 -->
+            <div class="experiment-card" data-experiment="2">
+                <img src="images/indicator(2).png" alt="Изучение индикаторов">
+                <div class="card-content">
+                    <h3>Изучение индикаторов</h3>
+                    <p>Использование химических индикаторов для выявления крахмала, глюкозы, липидов и белков.</p>
+                </div>
+            </div>
+            
+            <!-- Карточка 3 -->
+            <div class="experiment-card" data-experiment="3">
+                <img src="images/basicpigments(3).png" alt="Фотосинтетические пигменты">
+                <div class="card-content">
+                    <h3>Фотосинтетические пигменты</h3>
+                    <p>Извлечение и разделение пигментов из растений методом бумажной хроматографии.</p>
+                </div>
+            </div>
+            
+            <!-- Карточка 4 -->
+            <div class="experiment-card" data-experiment="4">
+                <img src="images/models(4).png" alt="Биологические модели">
+                <div class="card-content">
+                    <h3>Биологические модели</h3>
+                    <p>Создание моделей биологических объектов и процессов из подручных материалов.</p>
+                </div>
+            </div>
+            
+            <!-- Карточка 5 -->
+            <div class="experiment-card" data-experiment="5">
+                <img src="images/anatomy(5).png" alt="Анатомические модели">
+                <div class="card-content">
+                    <h3>Анатомические модели</h3>
+                    <p>Конструирование моделей систем организма человека с демонстрацией движения жидкостей.</p>
+                </div>
+            </div>
+            
+            <!-- Карточка 6 -->
+            <div class="experiment-card" data-experiment="6">
+                <img src="images/volcano(6).png" alt="Модель вулкана">
+                <div class="card-content">
+                    <h3>Модель вулкана</h3>
+                    <p>Создание модели вулкана и имитация извержения с помощью химической реакции.</p>
+                </div>
+            </div>
+            
+            <!-- Карточка 7 -->
+            <div class="experiment-card" data-experiment="7">
+                <img src="images/potato_battery(7).png" alt="Картофельная батарейка">
+                <div class="card-content">
+                    <h3>Картофельная батарейка</h3>
+                    <p>Создание гальванического элемента из картофеля для демонстрации получения электричества.</p>
+                </div>
+            </div>
+            
+            <!-- Карточка 8 -->
+            <div class="experiment-card" data-experiment="8">
+                <img src="images/lava_lamp(8).png" alt="Лавовая лампа">
+                <div class="card-content">
+                    <h3>Лавовая лампа</h3>
+                    <p>Создание модели лавовой лампы для наблюдения физических и химических явлений.</p>
+                </div>
+            </div>
+            
+            <!-- Карточка 9 -->
+            <div class="experiment-card" data-experiment="9">
+                <img src="images/traffic_light(9).png" alt="Опыт Светофор">
+                <div class="card-content">
+                    <h3>Опыт "Светофор"</h3>
+                    <p>Демонстрация окислительно-восстановительных процессов с изменением цвета раствора.</p>
+                </div>
+            </div>
+            
+            <!-- Карточка 10 -->
+            <div class="experiment-card" data-experiment="10">
+                <img src="images/pharaon_snakes(10).png" alt="Фараоновы змеи">
+                <div class="card-content">
+                    <h3>Фараоновы змеи</h3>
+                    <p>Демонстрация термического разложения с образованием пористого твёрдого вещества.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Детальная панель для экспериментов -->
+    <div class="detail-panel">
+        <div class="panel-header">
+            <h2 id="panel-title">Название эксперимента</h2>
+            <button class="close-btn">&times;</button>
+        </div>
+        <div class="panel-body">
+            <div class="panel-content">
+                <div class="experiment-meta">
+                    <div class="meta-item"><i class="fas fa-flask"></i> Химия</div>
+                    <div class="meta-item"><i class="fas fa-clock"></i> 45 минут</div>
+                    <div class="meta-item"><i class="fas fa-user-graduate"></i> Средняя сложность</div>
+                </div>
+                
+                <h3>Цель работы</h3>
+                <p id="goal-text">Цель эксперимента будет отображена здесь.</p>
+                
+                <h3>Оборудование и материалы</h3>
+                <div id="materials-list">
+                    <!-- Содержимое будет добавлено через JavaScript -->
+                </div>
+                
+                <h3>Ход работы</h3>
+                <div id="procedure-steps">
+                    <!-- Содержимое будет добавлено через JavaScript -->
+                </div>
+                
+                <h3>Результаты</h3>
+                <div id="results-content">
+                    <!-- Содержимое будет добавлено через JavaScript -->
+                </div>
+            </div>
+            
+            <div class="video-container">
+                <div class="video-placeholder">
+                    <i class="fas fa-video"></i>
+                    <span>Видео эксперимента</span>
+                </div>
+                <p class="video-description">Видео демонстрирует процесс проведения эксперимента и ожидаемые результаты</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="overlay"></div>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const experimentCards = document.querySelectorAll('.experiment-card');
+        const detailPanel = document.querySelector('.detail-panel');
+        const overlay = document.querySelector('.overlay');
+        const closeBtn = document.querySelector('.close-btn');
+        const panelTitle = document.getElementById('panel-title');
+        const goalText = document.getElementById('goal-text');
+        const materialsList = document.getElementById('materials-list');
+        const procedureSteps = document.getElementById('procedure-steps');
+        const resultsContent = document.getElementById('results-content');
+        const videoContainer = document.querySelector('.video-container');
+        
+        // Данные для экспериментов
+        const experimentData = {
+                1: {
+                title: "Выявление витамина С во фруктах",
+                goal: "Сравнить количество витамина С в свежевыжатом соке фруктов.",
+                materials: [
+                    "Крахмальный клейстер",
+                    "Аскорбиновая кислота",
+                    "Вода",
+                    "Лимонный сок, яблочный сок, апельсиновый сок, мандариновый сок",
+                    "Йод",
+                    "Лабораторная посуда"
+                ],
+                procedure: [
+                    "Подготовка контроля: Налейте 20 мл воды в стакан, добавите 1 мг аскорбиновой кислоты.",
+                    "Добавьте 1 каплю крахмального клейстера и перемешайте.",
+                    "Добавляйте по одной капле йода в раствор, считая капли (титрование).",
+                    "Проверка образцов: Возьмите 20 мл одного из видов сока.",
+                    "Добавьте 1 каплю крахмального клейстера и перемешайте.",
+                    "Добавляйте йод по 1 капле, считая каждую каплю.",
+                    "Запишите результаты в таблицу."
+                ],
+                results: "Результаты эксперимента заносятся в таблицу, где сравнивается количество капель йода, необходимое для изменения цвета в разных соках.",
+                image: "images/vitaminC(1).png" // Добавлено изображение
+            },
+            2: {
+                title: "Изучение индикаторов",
+                goal: "Использование химических индикаторов для выявления крахмала, глюкозы, липидов и белков.",
+                materials: [
+                    "Подставка для пробирок / Пробирки",
+                    "Щипцы",
+                    "Индикаторы: Йод (Люголя), Биурет, Бенедикта, Судан IV",
+                    "Содержимое желудка (образец для анализа)"
+                ],
+                procedure: [
+                    "Йод Люголя (на крахмал): Поместите 10 капель образца в лунку, добавьте 2 капли йода.",
+                    "Раствор Биурета (на белки): Поместите 10 капель образца в лунку, добавьте 2 капли реактива Биурета, перемешайте.",
+                    "Раствор Бенедикта (на глюкозу): Добавьте 20 капель образца в пробирку, добавьте 5 капель раствора Бенедикта, осторожно перемешайте.",
+                    "Судан IV (на липиды): Добавьте 20 капель образца в пробирку, добавьте 5 капель Судана IV, осторожно перемешайте, оставьте пробирку на 2 минуты."
+                ],
+                results: "На основе изменения цвета индикаторов определяется наличие определенных веществ в образце.",
+                image: "images/indicator(2).png" // Добавлено изображение
+            },
+            // Остальные эксперименты с добавлением изображений...
+            3: {
+      "title": "Изучение фотосинтетических пигментов",
+      "goal": "Изучить основные фотосинтетические пигменты на основе опытов по их извлечению и разделению из различных растений.",
+      "materials": [
+        "Листья растений или кожура фруктов",
+        "Этиловый спирт (96%)",
+        "Бензин",
+        "Ацетон",
+        "Кварцевый песок",
+        "Мел",
+        "Фильтровальная бумага",
+        "Лабораторная посуда"
+      ],
+      "procedure": [
+        "Измельчите листья растения, добавьте кварцевый песок и мел.",
+        "Добавьте 96% спирт и разотрите до образования зелёной кашицы.",
+        "Отфильтруйте смесь через бумажный фильтр.",
+        "Разделение пигментов по методу Крауса: добавьте бензин к спиртовому раствору, дождитесь разделения слоёв.",
+        "Разделение пигментов методом бумажной хроматографии: нанесите каплю раствора на бумажную полоску, поместите в растворитель."
+      ],
+      "results": "Разделение пигментов на хлорофиллы и каротиноиды, расчет коэффициентов Rf для каждого пигмента.",
+      "image": "images/basicpigments(3).png"
+    },
+            4: {
+      "title": "Создание биологических моделей",
+      "goal": "Научиться создавать объёмные биологические модели, отражающие строение и/или функционирование биологических объектов или процессов.",
+      "materials": [
+        "Цветная бумага",
+        "Клей",
+        "Ножницы",
+        "Карандаши",
+        "Подручные материалы: пластиковые крышки, нити, проволока, шарики, пенопласт, картон"
+      ],
+      "procedure": [
+        "Выберите объект или процесс для моделирования (клетка, ДНК, митоз и т.д.).",
+        "Нарисуйте эскиз будущей модели.",
+        "Изготовьте элементы модели из доступных материалов.",
+        "Соберите модель, закрепите детали, подпишите компоненты.",
+        "Подготовьте презентацию модели."
+      ],
+      "results": "Готовая биологическая модель с объяснением её компонентов.",
+      "image": "images/models(4).png"
+    },
+           5: {
+      "title": "Создание анатомических моделей систем организма",
+      "goal": "Научиться конструировать объёмные модели анатомических систем человека с использованием подручных материалов.",
+      "materials": [
+        "Шприцы (без иголок)",
+        "Трубки (медицинские, пластиковые или резиновые)",
+        "Краски",
+        "Цветная бумага",
+        "Клей",
+        "Картон",
+        "Подручные материалы: бутылки, пластиковые ёмкости, губки"
+      ],
+      "procedure": [
+        "Выберите анатомическую систему (дыхательная, кровеносная, выделительная).",
+        "Нарисуйте эскиз выбранной системы.",
+        "Определите материалы для органов и частей системы.",
+        "Соберите элементы модели с помощью клея, трубок, шприцов.",
+        "Раскрасьте модель, подпишите ключевые части."
+      ],
+      "results": "Функциональная модель анатомической системы с возможностью демонстрации движения веществ.",
+      "image": "images/anatomy(5).png"
+    },
+    6: {
+      "title": "Модель вулкана и имитация извержения",
+      "goal": "Изготовить модель вулкана и провести демонстрацию «извержения» с использованием химической реакции.",
+      "materials": [
+        "Пищевая сода",
+        "Уксус или лимонная кислота",
+        "Моющее средство",
+        "Краски",
+        "Пластиковая бутылка",
+        "Пластилин или папье-маше"
+      ],
+      "procedure": [
+        "Создайте форму вулкана вокруг бутылки из пластилина или папье-маше.",
+        "Раскрасьте вулкан красками.",
+        "Влейте в бутылку 2-3 столовые ложки уксуса.",
+        "Добавьте моющее средство и краску.",
+        "Добавьте 1-2 чайные ложки соды.",
+        "Наблюдайте извержение."
+      ],
+      "results": "Визуальный эффект извержения вулкана благодаря реакции с выделением углекислого газа.",
+      "image": "images/volcano(6).png"
+    },
+    7: {
+      "title": "Создание гальванического элемента из картофеля",
+      "goal": "Изготовить простейший источник тока и продемонстрировать свечение светодиода.",
+      "materials": [
+        "Картофель",
+        "Медные монетки или пластины",
+        "Цинковые гвозди",
+        "Провода с зажимами",
+        "Светодиод"
+      ],
+      "procedure": [
+        "Вставьте в картофелину медный и цинковый электроды.",
+        "Соедините провода от медного электрода одной картофелины с цинковым электродом другой.",
+        "Подключите свободные концы к светодиоду, соблюдая полярность."
+      ],
+      "results": "Свечение светодиода за счёт химической реакции между металлами и картофельным соком.",
+      "image": "images/potato_battery(7).png"
+    },
+    8: {
+      
+      "title": "Создание модели лавовой лампы",
+      "goal": "Смоделировать работу лавовой лампы и наблюдать взаимодействие веществ разной плотности.",
+      "materials": [
+        "Прозрачная бутылка или стакан",
+        "Вода",
+        "Растительное масло",
+        "Пищевой краситель",
+        "Шипучая таблетка"
+      ],
+      "procedure": [
+        "Наполните бутылку на 1/4 водой.",
+        "Добавьте пищевой краситель и перемешайте.",
+        "Долейте растительное масло почти до верха.",
+        "Бросьте кусочек шипучей таблетки и наблюдайте эффект."
+      ],
+      "results": "Создание эффекта движущихся пузырьков, имитирующих лавовую лампу.",
+      "image": "images/lava_lamp(8).png"
+    },
+    9: {
+      "title": "Опыт «Светофор»",
+      "goal": "Изучить изменения окраски раствора в ходе окислительно-восстановительных процессов.",
+      "materials": [
+        "Раствор глюкозы",
+        "Раствор гидроксида натрия (NaOH)",
+        "Раствор метиленового синего",
+        "Стеклянный флакон с крышкой"
+      ],
+      "procedure": [
+        "Налейте в флакон 100 мл воды.",
+        "Добавьте 5-10 мл раствора глюкозы.",
+        "Добавьте 5 мл раствора NaOH.",
+        "Добавьте 2-3 капли метиленового синего.",
+        "Закройте флакон и встряхните.",
+        "Наблюдайте изменение цвета при встряхивании."
+      ],
+      "results": "Многократное изменение цвета раствора при встряхивании (синий/зеленый → бесцветный/желтый).",
+      "image": "images/traffic_light(9).png"
+    },
+    10: {
+      "title": "Химическая реакция «Фараоновы змеи»",
+      "goal": "Продемонстрировать химическую реакцию термического разложения с образованием пористого твёрдого вещества.",
+      "materials": [
+        "Сахар (глюкоза)",
+        "Пищевая сода",
+        "Сухое топливо",
+        "Песок или металлический поднос",
+        "Зажигалка или спички"
+      ],
+      "procedure": [
+        "Смешайте сахар и пищевую соду.",
+        "Поместите смесь на песок или поднос.",
+        "Аккуратно подожгите смесь.",
+        "Наблюдайте образование «змеи»."
+      ],
+      "results": "Образование пористого углеродного продукта в виде растущей «змеи».",
+      "image": "images/pharaon_snakes(10).png"
+    }
+        };
+        
+        // Открытие панели при клике на карточку
+        experimentCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const experimentId = card.getAttribute('data-experiment');
+                const data = experimentData[experimentId];
+                
+                if (data) {
+                    panelTitle.textContent = data.title;
+                    goalText.textContent = data.goal;
+                    
+                    // Заполняем материалы
+                    materialsList.innerHTML = "";
+                    data.materials.forEach(material => {
+                        const li = document.createElement('p');
+                        li.textContent = "• " + material;
+                        materialsList.appendChild(li);
+                    });
+                    
+                    // Заполняем процедуру
+                    procedureSteps.innerHTML = "";
+                    data.procedure.forEach((step, index) => {
+                        const li = document.createElement('p');
+                        li.innerHTML = `<b>${index + 1}.</b> ${step}`;
+                        procedureSteps.appendChild(li);
+                    });
+                    
+                    // Заполняем результаты
+                    resultsContent.textContent = data.results;
+                    
+                    // Добавляем изображение как заглушку для видео
+                    videoContainer.innerHTML = "";
+                    if (data.image) {
+                        const img = document.createElement('img');
+                        img.src = data.image;
+                        img.alt = data.title;
+                        img.style.width = '100%';
+                        img.style.borderRadius = '8px';
+                        videoContainer.appendChild(img);
+                        
+                        // Добавляем текст под изображением
+                        const caption = document.createElement('p');
+                        caption.textContent = 'Изображение эксперимента';
+                        caption.style.textAlign = 'center';
+                        caption.style.marginTop = '10px';
+                        caption.style.color = '#666';
+                        videoContainer.appendChild(caption);
+                    }
+                    
+                    // Показываем панель
+                    detailPanel.classList.add('active');
+                    overlay.classList.add('active');
+                }
+            });
+        });
+        
+        // Закрытие панели
+        closeBtn.addEventListener('click', closePanel);
+        overlay.addEventListener('click', closePanel);
+        
+        function closePanel() {
+            detailPanel.classList.remove('active');
+            overlay.classList.remove('active');
+        }
+        
+        // Закрытие панели клавишей Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && detailPanel.classList.contains('active')) {
+                closePanel();
+            }
+        });
+    });
+</script>
+</body>
+</html>
