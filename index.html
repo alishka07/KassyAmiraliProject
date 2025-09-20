@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Лабораторные эксперименты</title>
+    <title>Лабораторные эксперименты STEM BOX</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -12,63 +12,61 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        #main {
-		margin-left: 35%;
-		max-width: 54em;
-		padding: 8em 4em 4em 4em;
-		width: calc(100% - 35%);}
-
-
-        #header {
-		display: -moz-flex;
-		display: -webkit-flex;
-		display: -ms-flex;
-		display: flex;
-		-moz-flex-direction: column;
-		-webkit-flex-direction: column;
-		-ms-flex-direction: column;
-		flex-direction: column;
-		-moz-align-items: -moz-flex-end;
-		-webkit-align-items: -webkit-flex-end;
-		-ms-align-items: -ms-flex-end;
-		align-items: flex-end;
-		-moz-justify-content: space-between;
-		-webkit-justify-content: space-between;
-		-ms-justify-content: space-between;
-		justify-content: space-between;
-		background-color: #1f1815;
-		background-attachment: scroll,								scroll;
-		background-image: url("images/overlay.png"), url("../../images/bg.jpg");
-		background-position: top left,							top left;
-		background-repeat: repeat,								no-repeat;
-		background-size: auto,								150%;
-		color: rgba(255, 255, 255, 0.5);
-		height: 100%;
-		left: 0;
-		padding: 8em 4em;
-		position: fixed;
-		text-align: right;
-		top: 0;
-		width: 35%;
-	}
-
+        
         body {
             background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
             color: #333;
             min-height: 100vh;
-            padding: 20px;
+            padding: 0;
+        }
+        
+        /* Верхний заголовок */
+        #top-header {
+            background-color: #1f1815;
+            background-image: url("images/overlay.png"), url("../../images/bg.jpg");
+            background-position: top left, top left;
+            background-repeat: repeat, no-repeat;
+            background-size: auto, cover;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .main-title {
+            font-size: 3.5rem;
+            color: #f0f5ff;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .sub-title {
+            font-size: 1.8rem;
+            color: #f5f5f5;
+            margin-bottom: 1.5rem;
+            line-height: 1.4;
+        }
+        
+        .authors {
+            font-size: 1.4rem;
+            color: #d3d3d3;
         }
         
         .container {
             max-width: 1200px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.9);
+            margin: 2rem auto;
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 15px;
-            padding: 20px;
+            padding: 2rem;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
         
-        header {
+        .page-header {
             text-align: center;
             margin-bottom: 30px;
             padding: 20px;
@@ -266,40 +264,6 @@
             visibility: visible;
         }
         
-        @media (max-width: 900px) {
-            .panel-body {
-                flex-direction: column;
-            }
-            
-            .video-container {
-                width: 100%;
-                order: -1;
-                padding: 15px;
-            }
-            
-            .video-placeholder {
-                height: 200px;
-            }
-            
-            .gallery {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            }
-        }
-        
-        @media (max-width: 600px) {
-            .gallery {
-                grid-template-columns: 1fr;
-            }
-            
-            .detail-panel {
-                width: 95%;
-            }
-            
-            h1 {
-                font-size: 2rem;
-            }
-        }
-        
         .experiment-meta {
             display: flex;
             gap: 15px;
@@ -336,39 +300,167 @@
         th {
             background-color: #f0f5ff;
         }
+        
+        /* Адаптивные стили */
+        @media (max-width: 1200px) {
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .main-title {
+                font-size: 2.8rem;
+            }
+            
+            .sub-title {
+                font-size: 1.5rem;
+            }
+            
+            .authors {
+                font-size: 1.2rem;
+            }
+            
+            .panel-body {
+                flex-direction: column;
+            }
+            
+            .video-container {
+                width: 100%;
+                order: -1;
+                padding: 15px;
+            }
+            
+            .video-placeholder {
+                height: 200px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            #top-header {
+                padding: 1.5rem;
+            }
+            
+            .main-title {
+                font-size: 2.2rem;
+            }
+            
+            .sub-title {
+                font-size: 1.3rem;
+            }
+            
+            .authors {
+                font-size: 1rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .gallery {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .experiment-meta {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .panel-content {
+                padding: 15px;
+            }
+            
+            .panel-header {
+                padding: 12px 15px;
+            }
+            
+            .panel-header h2 {
+                font-size: 1.3rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            #top-header {
+                padding: 1rem;
+            }
+            
+            .main-title {
+                font-size: 1.8rem;
+            }
+            
+            .sub-title {
+                font-size: 1.1rem;
+            }
+            
+            .authors {
+                font-size: 0.9rem;
+            }
+            
+            .container {
+                padding: 1rem;
+                margin: 1rem auto;
+            }
+            
+            .page-header {
+                padding: 15px;
+                margin-bottom: 20px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .card-content {
+                padding: 15px;
+            }
+            
+            .card-content h3 {
+                font-size: 1.2rem;
+            }
+            
+            .detail-panel {
+                width: 95%;
+            }
+            
+            .meta-item {
+                padding: 6px 12px;
+                font-size: 0.85rem;
+            }
+        }
     </style>
 </head>
-    <body>
+<body>
+    <!-- Start of OpenWidget (www.openwidget.com) code -->
+    <script>
+      window.__ow = window.__ow || {};
+      window.__ow.organizationId = "e594a349-9728-42f3-8559-23adb5142bcd";
+      window.__ow.integration_name = "manual_settings";
+      window.__ow.product_name = "openwidget";   
+      ;(function(n,t,c){function i(n){return e._h?e._h.apply(null,n):e._q.push(n)}var e={_q:[],_h:null,_v:"2.0",on:function(){i(["on",c.call(arguments)])},once:function(){i(["once",c.call(arguments)])},off:function(){i(["off",c.call(arguments)])},get:function(){if(!e._h)throw new Error("[OpenWidget] You can't use getters before load.");return i(["get",c.call(arguments)])},call:function(){i(["call",c.call(arguments)])},init:function(){var n=t.createElement("script");n.async=!0,n.type="text/javascript",n.src="https://cdn.openwidget.com/openwidget.js",t.head.appendChild(n)}};!n.__ow.asyncInit&&e.init(),n.OpenWidget=n.OpenWidget||e}(window,document,[].slice))
+    </script>
+    <noscript>You need to <a href="https://www.openwidget.com/enable-javascript" rel="noopener nofollow">enable JavaScript</a> to use the communication tool powered by <a href="https://www.openwidget.com/" rel="noopener nofollow" target="_blank">OpenWidget</a></noscript>
+    <!-- End of OpenWidget code -->
 
+    <!-- Верхний заголовок -->
+    <header id="top-header">
+        <div class="header-content">
+            <h1 class="main-title"><strong>STEM BOX</strong></h1>
+            <p class="sub-title">Explore the world of science with us!<br>Создание моделей, проведение опытов и многое другое...</p>
+            <p class="authors">Created by Altay Amirali and Kassiyet Zhumabek</p>
+        </div>
+    </header>
 
-<!-- Start of OpenWidget (www.openwidget.com) code -->
-<script>
-  window.__ow = window.__ow || {};
-  window.__ow.organizationId = "e594a349-9728-42f3-8559-23adb5142bcd";
-  window.__ow.integration_name = "manual_settings";
-  window.__ow.product_name = "openwidget";   
-  ;(function(n,t,c){function i(n){return e._h?e._h.apply(null,n):e._q.push(n)}var e={_q:[],_h:null,_v:"2.0",on:function(){i(["on",c.call(arguments)])},once:function(){i(["once",c.call(arguments)])},off:function(){i(["off",c.call(arguments)])},get:function(){if(!e._h)throw new Error("[OpenWidget] You can't use getters before load.");return i(["get",c.call(arguments)])},call:function(){i(["call",c.call(arguments)])},init:function(){var n=t.createElement("script");n.async=!0,n.type="text/javascript",n.src="https://cdn.openwidget.com/openwidget.js",t.head.appendChild(n)}};!n.__ow.asyncInit&&e.init(),n.OpenWidget=n.OpenWidget||e}(window,document,[].slice))
-</script>
-<noscript>You need to <a href="https://www.openwidget.com/enable-javascript" rel="noopener nofollow">enable JavaScript</a> to use the communication tool powered by <a href="https://www.openwidget.com/" rel="noopener nofollow" target="_blank">OpenWidget</a></noscript>
-<!-- End of OpenWidget code -->
-
-
-		<!-- Header -->
-			<header id="header">
-				<div class="inner">
-					<h1 style="font-size: 75px; color: #f0f5ff;"><strong>STEM BOX</strong> </h1>
-                     <h1 style="font-size: 60px; color: #f5f5f5; align-self: center;"><strong>Explore the world of science with us!</br> Создание моделей,проведения опытов и многое другое....</strong> </h1>
-                    <h1 style="font-size: 30px; color: #464141;"><strong>Created by Altay Amirali and Kassiyet Zhumabek</strong> </h1>
-				</div>
-               
-			</header>
-
-		<!-- Main -->
-			<div id="main">
-        <header>
+    <!-- Основной контент -->
+    <div class="container">
+        <div class="page-header">
             <h1>Лабораторные эксперименты</h1>
             <p class="subtitle">Исследуйте увлекательный мир научных экспериментов</p>
-        </header>
+        </div>
         
         <div class="gallery">
             <!-- Карточка 1 -->
@@ -457,7 +549,7 @@
                 <img src="images/pharaon_snakes(10).png" alt="Фараоновы змеи">
                 <div class="card-content">
                     <h3>Фараоновы змеи</h3>
-                    <p>Демонстрация термического разложения с образованием пористого твёрдого вещества.</p>
+                    <p>Демонstration термического разложения с образованием пористого твёрдого вещества.</p>
                 </div>
             </div>
         </div>
@@ -523,7 +615,7 @@
         
         // Данные для экспериментов
         const experimentData = {
-                1: {
+            1: {
                 title: "Выявление витамина С во фруктах",
                 goal: "Сравнить количество витамина С в свежевыжатом соке фруктов.",
                 materials: [
@@ -544,7 +636,7 @@
                     "Запишите результаты в таблицу."
                 ],
                 results: "Результаты эксперимента заносятся в таблицу, где сравнивается количество капель йода, необходимое для изменения цвета в разных соках.",
-                image: "images/vitaminC(1).png" // Добавлено изображение
+                image: "images/vitaminC(1).png"
             },
             2: {
                 title: "Изучение индикаторов",
@@ -562,173 +654,171 @@
                     "Судан IV (на липиды): Добавьте 20 капель образца в пробирку, добавьте 5 капель Судана IV, осторожно перемешайте, оставьте пробирку на 2 минуты."
                 ],
                 results: "На основе изменения цвета индикаторов определяется наличие определенных веществ в образце.",
-                image: "images/indicator(2).png" // Добавлено изображение
+                image: "images/indicator(2).png"
             },
-            // Остальные эксперименты с добавлением изображений...
             3: {
-      "title": "Изучение фотосинтетических пигментов",
-      "goal": "Изучить основные фотосинтетические пигменты на основе опытов по их извлечению и разделению из различных растений.",
-      "materials": [
-        "Листья растений или кожура фруктов",
-        "Этиловый спирт (96%)",
-        "Бензин",
-        "Ацетон",
-        "Кварцевый песок",
-        "Мел",
-        "Фильтровальная бумага",
-        "Лабораторная посуда"
-      ],
-      "procedure": [
-        "Измельчите листья растения, добавьте кварцевый песок и мел.",
-        "Добавьте 96% спирт и разотрите до образования зелёной кашицы.",
-        "Отфильтруйте смесь через бумажный фильтр.",
-        "Разделение пигментов по методу Крауса: добавьте бензин к спиртовому раствору, дождитесь разделения слоёв.",
-        "Разделение пигментов методом бумажной хроматографии: нанесите каплю раствора на бумажную полоску, поместите в растворитель."
-      ],
-      "results": "Разделение пигментов на хлорофиллы и каротиноиды, расчет коэффициентов Rf для каждого пигмента.",
-      "image": "images/basicpigments(3).png"
-    },
+                "title": "Изучение фотосинтетических пигментов",
+                "goal": "Изучить основные фотосинтетические пигменты на основе опытов по их извлечению и разделению из различных растений.",
+                "materials": [
+                    "Листья растений или кожура фруктов",
+                    "Этиловый спирт (96%)",
+                    "Бензин",
+                    "Ацeton",
+                    "Кварцевый песок",
+                    "Мел",
+                    "Фильтровальная бумага",
+                    "Лабораторная посуда"
+                ],
+                "procedure": [
+                    "Измельчите листья растения, добавьте кварцевый песок и мел.",
+                    "Добавьте 96% спирт и разотрите до образования зелёной кашицы.",
+                    "Отфильтруйте смесь через бумажный фильтр.",
+                    "Разделение пигментов по методу Крауса: добавьте бензин к спиртовому раствору, дождитесь разделения слоёв.",
+                    "Разделение пигментов методом бумажной хроматографии: нанесите каплю раствора на бумажную полоску, поместите в растворитель."
+                ],
+                "results": "Разделение пигментов на хлорофиллы и каротиноиды, расчет коэффициентов Rf для каждого пигмента.",
+                "image": "images/basicpigments(3).png"
+            },
             4: {
-      "title": "Создание биологических моделей",
-      "goal": "Научиться создавать объёмные биологические модели, отражающие строение и/или функционирование биологических объектов или процессов.",
-      "materials": [
-        "Цветная бумага",
-        "Клей",
-        "Ножницы",
-        "Карандаши",
-        "Подручные материалы: пластиковые крышки, нити, проволока, шарики, пенопласт, картон"
-      ],
-      "procedure": [
-        "Выберите объект или процесс для моделирования (клетка, ДНК, митоз и т.д.).",
-        "Нарисуйте эскиз будущей модели.",
-        "Изготовьте элементы модели из доступных материалов.",
-        "Соберите модель, закрепите детали, подпишите компоненты.",
-        "Подготовьте презентацию модели."
-      ],
-      "results": "Готовая биологическая модель с объяснением её компонентов.",
-      "image": "images/models(4).png"
-    },
-           5: {
-      "title": "Создание анатомических моделей систем организма",
-      "goal": "Научиться конструировать объёмные модели анатомических систем человека с использованием подручных материалов.",
-      "materials": [
-        "Шприцы (без иголок)",
-        "Трубки (медицинские, пластиковые или резиновые)",
-        "Краски",
-        "Цветная бумага",
-        "Клей",
-        "Картон",
-        "Подручные материалы: бутылки, пластиковые ёмкости, губки"
-      ],
-      "procedure": [
-        "Выберите анатомическую систему (дыхательная, кровеносная, выделительная).",
-        "Нарисуйте эскиз выбранной системы.",
-        "Определите материалы для органов и частей системы.",
-        "Соберите элементы модели с помощью клея, трубок, шприцов.",
-        "Раскрасьте модель, подпишите ключевые части."
-      ],
-      "results": "Функциональная модель анатомической системы с возможностью демонстрации движения веществ.",
-      "image": "images/anatomy(5).png"
-    },
-    6: {
-      "title": "Модель вулкана и имитация извержения",
-      "goal": "Изготовить модель вулкана и провести демонстрацию «извержения» с использованием химической реакции.",
-      "materials": [
-        "Пищевая сода",
-        "Уксус или лимонная кислота",
-        "Моющее средство",
-        "Краски",
-        "Пластиковая бутылка",
-        "Пластилин или папье-маше"
-      ],
-      "procedure": [
-        "Создайте форму вулкана вокруг бутылки из пластилина или папье-маше.",
-        "Раскрасьте вулкан красками.",
-        "Влейте в бутылку 2-3 столовые ложки уксуса.",
-        "Добавьте моющее средство и краску.",
-        "Добавьте 1-2 чайные ложки соды.",
-        "Наблюдайте извержение."
-      ],
-      "results": "Визуальный эффект извержения вулкана благодаря реакции с выделением углекислого газа.",
-      "image": "images/volcano(6).png"
-    },
-    7: {
-      "title": "Создание гальванического элемента из картофеля",
-      "goal": "Изготовить простейший источник тока и продемонстрировать свечение светодиода.",
-      "materials": [
-        "Картофель",
-        "Медные монетки или пластины",
-        "Цинковые гвозди",
-        "Провода с зажимами",
-        "Светодиод"
-      ],
-      "procedure": [
-        "Вставьте в картофелину медный и цинковый электроды.",
-        "Соедините провода от медного электрода одной картофелины с цинковым электродом другой.",
-        "Подключите свободные концы к светодиоду, соблюдая полярность."
-      ],
-      "results": "Свечение светодиода за счёт химической реакции между металлами и картофельным соком.",
-      "image": "images/potato_battery(7).png"
-    },
-    8: {
-      
-      "title": "Создание модели лавовой лампы",
-      "goal": "Смоделировать работу лавовой лампы и наблюдать взаимодействие веществ разной плотности.",
-      "materials": [
-        "Прозрачная бутылка или стакан",
-        "Вода",
-        "Растительное масло",
-        "Пищевой краситель",
-        "Шипучая таблетка"
-      ],
-      "procedure": [
-        "Наполните бутылку на 1/4 водой.",
-        "Добавьте пищевой краситель и перемешайте.",
-        "Долейте растительное масло почти до верха.",
-        "Бросьте кусочек шипучей таблетки и наблюдайте эффект."
-      ],
-      "results": "Создание эффекта движущихся пузырьков, имитирующих лавовую лампу.",
-      "image": "images/lava_lamp(8).png"
-    },
-    9: {
-      "title": "Опыт «Светофор»",
-      "goal": "Изучить изменения окраски раствора в ходе окислительно-восстановительных процессов.",
-      "materials": [
-        "Раствор глюкозы",
-        "Раствор гидроксида натрия (NaOH)",
-        "Раствор метиленового синего",
-        "Стеклянный флакон с крышкой"
-      ],
-      "procedure": [
-        "Налейте в флакон 100 мл воды.",
-        "Добавьте 5-10 мл раствора глюкозы.",
-        "Добавьте 5 мл раствора NaOH.",
-        "Добавьте 2-3 капли метиленового синего.",
-        "Закройте флакон и встряхните.",
-        "Наблюдайте изменение цвета при встряхивании."
-      ],
-      "results": "Многократное изменение цвета раствора при встряхивании (синий/зеленый → бесцветный/желтый).",
-      "image": "images/traffic_light(9).png"
-    },
-    10: {
-      "title": "Химическая реакция «Фараоновы змеи»",
-      "goal": "Продемонстрировать химическую реакцию термического разложения с образованием пористого твёрдого вещества.",
-      "materials": [
-        "Сахар (глюкоза)",
-        "Пищевая сода",
-        "Сухое топливо",
-        "Песок или металлический поднос",
-        "Зажигалка или спички"
-      ],
-      "procedure": [
-        "Смешайте сахар и пищевую соду.",
-        "Поместите смесь на песок или поднос.",
-        "Аккуратно подожгите смесь.",
-        "Наблюдайте образование «змеи»."
-      ],
-      "results": "Образование пористого углеродного продукта в виде растущей «змеи».",
-      "image": "images/pharaon_snakes(10).png"
-    }
+                "title": "Создание биологических моделей",
+                "goal": "Научиться создавать объёмные биологические модели, отражающие строение и/или функционирование биологических объектов или процессов.",
+                "materials": [
+                    "Цветная бумага",
+                    "Клей",
+                    "Ножницы",
+                    "Карандаши",
+                    "Подручные материалы: пластиковые крышки, нити, проволока, шарики, пенопласт, картон"
+                ],
+                "procedure": [
+                    "Выберите объект или процесс для моделирования (клетка, ДНК, митоз и т.д.).",
+                    "Нарисуйте эскиз будущей модели.",
+                    "Изготовьте элементы модели из доступных материалов.",
+                    "Соберите модель, закрепите детали, подпишите компоненты.",
+                    "Подготовьте презентацию модели."
+                ],
+                "results": "Готовая биологическая модель с объяснением её компонентов.",
+                "image": "images/models(4).png"
+            },
+            5: {
+                "title": "Создание анатомических моделей систем организма",
+                "goal": "Научиться конструировать объёмные модели анатомических систем человека с использованием подручных материалов.",
+                "materials": [
+                    "Шприцы (без иголок)",
+                    "Трубки (медицинские, пластиковые или резиновые)",
+                    "Краски",
+                    "Цветная бумага",
+                    "Клей",
+                    "Картон",
+                    "Подручные материалы: бутылки, пластиковые ёмкости, губки"
+                ],
+                "procedure": [
+                    "Выберите анатомическую систему (дыхательная, кровеносная, выделительная).",
+                    "Нарисуйте эскиз выбранной системы.",
+                    "Определите материалы для органов и частей системы.",
+                    "Соберите элементы модели с помощью клея, трубок, шприцов.",
+                    "Раскрасьте модель, подпишите ключевые части."
+                ],
+                "results": "Функциональная модель анатомической системы с возможностью демонстрации движения веществ.",
+                "image": "images/anatomy(5).png"
+            },
+            6: {
+                "title": "Модель вулкана и имитация извержения",
+                "goal": "Изготовить модель вулкана и провести демонстрацию «извержения» с использованием химической реакции.",
+                "materials": [
+                    "Пищевая сода",
+                    "Уксус или лимонная кислота",
+                    "Моющее средство",
+                    "Краски",
+                    "Пластиковая бутылка",
+                    "Пластилин или папье-маше"
+                ],
+                "procedure": [
+                    "Создайте форму вулкана вокруг бутылки из пластилина или папье-маше.",
+                    "Раскрасьте вулкан красками.",
+                    "Влейте в бутылку 2-3 столовые ложки уксуса.",
+                    "Добавьте моющее средство и краску.",
+                    "Добавьте 1-2 чайные ложки соды.",
+                    "Наблюдайте извержение."
+                ],
+                "results": "Визуальный эффект извержения вулкана благодаря реакции с выделением углекислого газа.",
+                "image": "images/volcano(6).png"
+            },
+            7: {
+                "title": "Создание гальванического элемента из картофеля",
+                "goal": "Изготовить простейший источник тока и продемонстрировать свечение светодиода.",
+                "materials": [
+                    "Картофель",
+                    "Медные монетки или пластины",
+                    "Цинковые гвозди",
+                    "Провода с зажимами",
+                    "Светодиод"
+                ],
+                "procedure": [
+                    "Вставьте в картофелину медный и цинковый электроды.",
+                    "Соедините провода от медного электрода одной картофелины с цинковым электродом другой.",
+                    "Подключите свободные концы к светодиоду, соблюдая полярность."
+                ],
+                "results": "Свечение светодиода за счёт химической реакции между металлами и картофельным соком.",
+                "image": "images/potato_battery(7).png"
+            },
+            8: {
+                "title": "Создание модели лавовой лампы",
+                "goal": "Смоделировать работу лавовой лампы и наблюдать взаимодействие веществ разной плотности.",
+                "materials": [
+                    "Прозрачная бутылка или стакан",
+                    "Вода",
+                    "Растительное масло",
+                    "Пищевой краситель",
+                    "Шипучая таблетка"
+                ],
+                "procedure": [
+                    "Наполните бутылку на 1/4 водой.",
+                    "Добавьте пищевой краситель и перемешайте.",
+                    "Долейте растительное масло почти до верха.",
+                    "Бросьте кусочек шипучей таблетки и наблюдайте эффект."
+                ],
+                "results": "Создание эффекта движущихся пузырьков, имитирующих лавовую лампу.",
+                "image": "images/lava_lamp(8).png"
+            },
+            9: {
+                "title": "Опыт «Светофор»",
+                "goal": "Изучить изменения окраски раствора в ходе окислительно-восстановительных процессов.",
+                "materials": [
+                    "Раствор глюкозы",
+                    "Раствор гидроксида натрия (NaOH)",
+                    "Раствор метиленового синего",
+                    "Стеклянный флакон с крышкой"
+                ],
+                "procedure": [
+                    "Налейте в флакон 100 мл воды.",
+                    "Добавьте 5-10 мл раствора глюкозы.",
+                    "Добавьте 5 мл раствора NaOH.",
+                    "Добавьте 2-3 капли метиленового синего.",
+                    "Закройте флакон и встряхните.",
+                    "Наблюдайте изменение цвета при встряхивании."
+                ],
+                "results": "Многократное изменение цвета раствора при встряхивании (синий/зеленый → бесцветный/желтый).",
+                "image": "images/traffic_light(9).png"
+            },
+            10: {
+                "title": "Химическая реакция «Фараоновы змеи»",
+                "goal": "Продемонстрировать химическую реакцию термического разложения с образованием пористого твёрдого вещества.",
+                "materials": [
+                    "Сахар (глюкоза)",
+                    "Пищевая сода",
+                    "Сухое топливо",
+                    "Песок или металлический поднос",
+                    "Зажигалка или спички"
+                ],
+                "procedure": [
+                    "Смешайте сахар и пищевую соду.",
+                    "Поместите смесь на песок или поднос.",
+                    "Аккуратно подожгите смесь.",
+                    "Наблюдайте образование «змеи»."
+                ],
+                "results": "Образование пористого углеродного продукта в виде растущей «змеи».",
+                "image": "images/pharaon_snakes(10).png"
+            }
         };
         
         // Открытие панели при клике на карточку
@@ -802,6 +892,6 @@
             }
         });
     });
-</script>
+    </script>
 </body>
 </html>
